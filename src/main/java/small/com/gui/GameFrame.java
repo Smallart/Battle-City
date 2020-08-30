@@ -133,12 +133,13 @@ public class GameFrame extends Frame {
                     KD=false;
                     break;
                 case KeyEvent.VK_C:
-                    String fourDirFire =(String)PropertyMagrUtil.get("FourDirFire");
-                    try {
-                        myTank.fire((FourDirFire)Class.forName(fourDirFire).getDeclaredConstructor().newInstance());
-                    } catch (Exception ex) {
-                        ex.printStackTrace();
-                    }
+//                    String fourDirFire =(String)PropertyMagrUtil.get("FourDirFire");
+//                    try {
+//                        myTank.fire((FourDirFire)Class.forName(fourDirFire).getDeclaredConstructor().newInstance());
+//                    } catch (Exception ex) {
+//                        ex.printStackTrace();
+//                    }
+                    myTank.fire(FourDirFire.getInstance());
                     break;
                 case KeyEvent.VK_CONTROL:
                     myTank.fire(CommonFire.getInstance());

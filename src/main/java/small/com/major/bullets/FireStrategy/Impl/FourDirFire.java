@@ -6,7 +6,7 @@ import small.com.major.bullets.FireStrategy.FireStrategyInter;
 import small.com.major.tanks.Tank;
 
 public class FourDirFire implements FireStrategyInter {
-    //private FourDirFire(){}
+    private FourDirFire(){}
     private static FourDirFire fourDirFire = new FourDirFire();
     @Override
     public void fireBullet(Tank tank) {
