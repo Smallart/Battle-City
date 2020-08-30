@@ -4,13 +4,17 @@ import small.com.common.Direction;
 import small.com.common.Group;
 import small.com.major.Explore;
 import small.com.major.bullets.Bullet;
+import small.com.major.bullets.FireStrategy.Impl.CommonFire;
+import small.com.major.bullets.FireStrategy.Impl.FourDirFire;
 import small.com.major.tanks.Tank;
+import small.com.utils.PropertyMagrUtil;
 
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -128,8 +132,16 @@ public class GameFrame extends Frame {
                 case KeyEvent.VK_DOWN:
                     KD=false;
                     break;
+                case KeyEvent.VK_C:
+                    String fourDirFire =(String)PropertyMagrUtil.get("FourDirFire");
+                    try {
+                        myTank.fire((FourDirFire)Class.forName(fourDirFire).getDeclaredConstructor().newInstance());
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+                    break;
                 case KeyEvent.VK_CONTROL:
-                    myTank.fire();
+                    myTank.fire(CommonFire.getInstance());
                     break;
             }
             SetDirection();

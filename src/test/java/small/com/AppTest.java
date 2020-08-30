@@ -2,14 +2,10 @@ package small.com;
 
 import org.junit.Assert;
 import org.junit.Test;
-import small.com.major.ResourceMgr;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
-
-import static org.junit.Assert.*;
 
 /**
  * Unit test for simple App.

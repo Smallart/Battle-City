@@ -3,14 +3,18 @@ package small.com.major.tanks;
 import small.com.common.Direction;
 import small.com.common.Group;
 import small.com.gui.GameFrame;
-import small.com.major.ResourceMgr;
+import small.com.major.bullets.FireStrategy.FireStrategyInter;
+import small.com.major.bullets.FireStrategy.Impl.CommonFire;
+import small.com.major.bullets.FireStrategy.Impl.FourDirFire;
+import small.com.utils.ResourceMgrUtil;
 import small.com.major.bullets.Bullet;
 
 import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.util.Random;
 
 public class Tank {
-    public static final int WIDTH=ResourceMgr.tankD.getWidth(),HEIGHT=ResourceMgr.tankD.getHeight();
+    public static final int WIDTH= ResourceMgrUtil.tankD.getWidth(),HEIGHT= ResourceMgrUtil.tankD.getHeight();
     protected int positionX;
     protected int positionY;
     protected static int SPEED=10;
@@ -65,21 +69,21 @@ public class Tank {
         if (living){
             switch(dir){
                 case UP:
-                    g.drawImage(ResourceMgr.tankU,positionX,positionY,null);
+                    g.drawImage(ResourceMgrUtil.tankU,positionX,positionY,null);
                     break;
                 case DOWN:
-                    g.drawImage(ResourceMgr.tankD,positionX,positionY,null);
+                    g.drawImage(ResourceMgrUtil.tankD,positionX,positionY,null);
                     break;
                 case LEFT:
-                    g.drawImage(ResourceMgr.tankL,positionX,positionY,null);
+                    g.drawImage(ResourceMgrUtil.tankL,positionX,positionY,null);
                     break;
                 case RIGHT:
-                    g.drawImage(ResourceMgr.tankR,positionX,positionY,null);
+                    g.drawImage(ResourceMgrUtil.tankR,positionX,positionY,null);
                     break;
             }
         }
         if (this.getGroup()==Group.RED&& random.nextInt(100)>95){
-            this.fire();
+            this.fire(CommonFire.getInstance());
             randomDir();
         }
     }
@@ -100,12 +104,20 @@ public class Tank {
         return positionY;
     }
 
+    public Direction getDir() {
+        return dir;
+    }
+
+    public GameFrame getGameFrame() {
+        return gameFrame;
+    }
+
     public Boolean getLiving() {
         return living;
     }
 
-    public void fire(){
-        gameFrame.bulletList.add(new Bullet(positionX+(WIDTH/2-Bullet.WIDTH/2),positionY+(HEIGHT/2-Bullet.HEIGHT/2),dir,group,gameFrame));
+    public void fire(FireStrategyInter fireStrategy){
+        fireStrategy.fireBullet(this);
     }
 
     public void die(){

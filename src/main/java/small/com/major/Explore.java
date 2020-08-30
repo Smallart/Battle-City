@@ -1,5 +1,6 @@
 package small.com.major;
 import small.com.gui.GameFrame;
+import small.com.utils.ResourceMgrUtil;
 
 import java.awt.*;
 
@@ -8,8 +9,8 @@ import java.awt.*;
  */
 public class Explore {
 
-    public static int WIDTH=ResourceMgr.exploreList[0].getWidth();
-    public static int HEIGHT=ResourceMgr.exploreList[0].getHeight();
+    public static int WIDTH= ResourceMgrUtil.exploreList[0].getWidth();
+    public static int HEIGHT= ResourceMgrUtil.exploreList[0].getHeight();
     private int x,y;
     private GameFrame gameFrame;
     private int step = 0;
@@ -22,8 +23,8 @@ public class Explore {
     }
 
     public void paint(Graphics g){
-        g.drawImage(ResourceMgr.exploreList[step++],x,y,null);
-        if (step>=ResourceMgr.exploreList.length){
+        g.drawImage(ResourceMgrUtil.exploreList[step++],x,y,null);
+        if (step>= ResourceMgrUtil.exploreList.length){
             gameFrame.exploreList.remove(this);
         }
     }

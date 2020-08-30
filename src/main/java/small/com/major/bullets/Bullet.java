@@ -4,13 +4,13 @@ import small.com.common.Direction;
 import small.com.common.Group;
 import small.com.gui.GameFrame;
 import small.com.major.Explore;
-import small.com.major.ResourceMgr;
+import small.com.utils.ResourceMgrUtil;
 import small.com.major.tanks.Tank;
 
 import java.awt.*;
 
 public class Bullet {
-    public static final int WIDTH=ResourceMgr.BulletD.getWidth(),HEIGHT=ResourceMgr.BulletD.getHeight(),SPEED=5;
+    public static final int WIDTH= ResourceMgrUtil.BulletD.getWidth(),HEIGHT= ResourceMgrUtil.BulletD.getHeight(),SPEED=5;
     private int positionX;
     private int positionY;
     private Direction dir;
@@ -29,6 +29,8 @@ public class Bullet {
         rect.y= positionY;
         rect.width =WIDTH;
         rect.height=WIDTH;
+        //new出来后就放入集合中
+        gameFrame.bulletList.add(this);
     }
 
     public boolean isLive() {
@@ -39,16 +41,16 @@ public class Bullet {
         if (!live) return;
         switch(dir){
             case UP:
-                g.drawImage(ResourceMgr.BulletU,positionX,positionY,null);
+                g.drawImage(ResourceMgrUtil.BulletU,positionX,positionY,null);
                 break;
             case DOWN:
-                g.drawImage(ResourceMgr.BulletD,positionX,positionY,null);
+                g.drawImage(ResourceMgrUtil.BulletD,positionX,positionY,null);
                 break;
             case LEFT:
-                g.drawImage(ResourceMgr.BulletL,positionX,positionY,null);
+                g.drawImage(ResourceMgrUtil.BulletL,positionX,positionY,null);
                 break;
             case RIGHT:
-                g.drawImage(ResourceMgr.BulletR,positionX,positionY,null);
+                g.drawImage(ResourceMgrUtil.BulletR,positionX,positionY,null);
                 break;
         }
         move();
