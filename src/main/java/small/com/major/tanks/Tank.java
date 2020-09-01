@@ -25,7 +25,6 @@ public class Tank extends GameObject {
     private Boolean living=true;
     private Group group;
     private Random random = new Random();
-    public Rectangle rec = new Rectangle();
 
     public void setDir(Direction dir) {
         this.dir = dir;
@@ -37,10 +36,10 @@ public class Tank extends GameObject {
         this.dir = dir;
         this.gameModule=gameModule;
         this.group=group;
-        rec.x=positionX;
-        rec.y=positionY;
-        rec.height=HEIGHT;
-        rec.width=WIDTH;
+        rectangle.x=positionX;
+        rectangle.y=positionY;
+        rectangle.height=HEIGHT;
+        rectangle.width=WIDTH;
     }
 
     public void setMoving(Boolean moving) {
@@ -65,8 +64,8 @@ public class Tank extends GameObject {
                     positionX+=SPEED;
                     break;
             }
-            rec.x=positionX;
-            rec.y=positionY;
+            rectangle.x=positionX;
+            rectangle.y=positionY;
             boundsCheck();
         }
         if (living){

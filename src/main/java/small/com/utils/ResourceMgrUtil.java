@@ -8,6 +8,7 @@ public class ResourceMgrUtil {
     private ResourceMgrUtil(){}
     public static BufferedImage tankL,tankR,tankU,tankD,BulletL,BulletR,BulletU,BulletD;
     public static BufferedImage[] exploreList = new BufferedImage[16];
+    public static BufferedImage brickWall;
     static {
         try {
             tankL= ImageIO.read(ResourceMgrUtil.class.getClassLoader().getResourceAsStream("img/KL.png"));
@@ -21,6 +22,7 @@ public class ResourceMgrUtil {
             for (int i = 0; i < exploreList.length; i++) {
                 exploreList[i]=ImageIO.read(ResourceMgrUtil.class.getClassLoader().getResourceAsStream("img/explore"+(i+1)+".png"));
             }
+            brickWall=ImageIO.read(ResourceMgrUtil.class.getClassLoader().getResourceAsStream("img/BrickWall.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }

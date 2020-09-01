@@ -6,6 +6,7 @@ import small.com.major.Collider;
 import small.com.major.ColliderChain;
 import small.com.major.Explore;
 import small.com.major.GameObject;
+import small.com.major.Wall.BrickWall;
 import small.com.major.bullets.Bullet;
 import small.com.major.bullets.BulletTankCollider;
 import small.com.major.tanks.Tank;
@@ -17,7 +18,7 @@ import java.util.List;
 
 public class GameModule {
 
-    private Tank myTank = new Tank(200,200, Direction.UP,this, Group.BLUE);
+    private Tank myTank = new Tank(200,300, Direction.UP,this, Group.BLUE);
 
     private ColliderChain colliderChain = new ColliderChain();
 
@@ -28,6 +29,11 @@ public class GameModule {
         for (int i = 0; i < initTankCount; i++) {
             this.gameObjects.add(new Tank((i+1)*80,200, Direction.DOWN,this, Group.RED));
         }
+
+        for (int i = 0; i < initTankCount; i++) {
+            this.gameObjects.add(new BrickWall((i+1)* BrickWall.WIDTH,200,this));
+        }
+
         add(myTank);
     }
 
@@ -40,12 +46,12 @@ public class GameModule {
     }
 
     public void paint(Graphics g){
-//        Color c =g.getColor();
-//        g.setColor(Color.red);
-//        g.drawString("子弹数量："+bulletList.size(),10,60);
+        Color c =g.getColor();
+        g.setColor(Color.red);
+        g.drawString("全局物体数量："+gameObjects.size(),10,60);
 //        g.drawString("敌方坦克数量："+enemyTanks.size(),10,80);
 //        g.drawString("爆炸的数量："+exploreList.size(),10,100);
-//        g.setColor(c);
+        g.setColor(c);
 //        myTank.paint(g);
 //        //敌方坦克
 //        for (int i = 0; i < enemyTanks.size(); i++) {

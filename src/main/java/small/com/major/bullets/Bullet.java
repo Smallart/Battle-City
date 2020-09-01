@@ -15,8 +15,7 @@ public class Bullet extends GameObject {
     private Direction dir;
     private boolean live=true;
     private Group group;
-    private GameModule gameModule;
-    private Rectangle rect = new Rectangle();
+    public GameModule gameModule;
 
     public Bullet(int positionX, int positionY, Direction dir,Group group,GameModule gameModule) {
         this.positionX = positionX;
@@ -24,10 +23,10 @@ public class Bullet extends GameObject {
         this.dir = dir;
         this.group=group;
         this.gameModule=gameModule;
-        rect.x=positionX;
-        rect.y= positionY;
-        rect.width =WIDTH;
-        rect.height=WIDTH;
+        rectangle.x=positionX;
+        rectangle.y= positionY;
+        rectangle.width =WIDTH;
+        rectangle.height=WIDTH;
         //new出来后就放入集合中
         gameModule.add(this);
     }
@@ -70,14 +69,14 @@ public class Bullet extends GameObject {
                 positionX+=SPEED;
                 break;
         }
-        rect.x=positionX;
-        rect.y=positionY;
-        if (positionX<0||positionY<0||positionX>800||positionY>600) live=false;
+        rectangle.x=positionX;
+        rectangle.y=positionY;
+        if (positionX<0||positionY<0||positionX>800||positionY>600) gameModule.remove(this); ;
     }
 
     public void collisionWith(Tank tank){
         if (tank.getGroup()==this.group) return;
-        if (rect.intersects(tank.rec)){
+        if (rectangle.intersects(tank.getRectangle())){
             tank.die();
             this.die();
             gameModule.add(new Explore(tank.getPositionX()+Tank.WIDTH/3-Explore.WIDTH/2,tank.getPositionY()+Tank.HEIGHT/3-Explore.HEIGHT/2,gameModule));
