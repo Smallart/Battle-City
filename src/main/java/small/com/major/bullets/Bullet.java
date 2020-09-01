@@ -2,35 +2,34 @@ package small.com.major.bullets;
 
 import small.com.common.Direction;
 import small.com.common.Group;
-import small.com.gui.GameFrame;
+import small.com.gui.GameModule;
 import small.com.major.Explore;
-import small.com.utils.ResourceMgrUtil;
+import small.com.major.GameObject;
 import small.com.major.tanks.Tank;
+import small.com.utils.ResourceMgrUtil;
 
 import java.awt.*;
 
-public class Bullet {
+public class Bullet extends GameObject {
     public static final int WIDTH= ResourceMgrUtil.BulletD.getWidth(),HEIGHT= ResourceMgrUtil.BulletD.getHeight(),SPEED=5;
-    private int positionX;
-    private int positionY;
     private Direction dir;
     private boolean live=true;
     private Group group;
-    private GameFrame gameFrame;
+    private GameModule gameModule;
     private Rectangle rect = new Rectangle();
 
-    public Bullet(int positionX, int positionY, Direction dir,Group group,GameFrame gameFrame) {
+    public Bullet(int positionX, int positionY, Direction dir,Group group,GameModule gameModule) {
         this.positionX = positionX;
         this.positionY = positionY;
         this.dir = dir;
         this.group=group;
-        this.gameFrame=gameFrame;
+        this.gameModule=gameModule;
         rect.x=positionX;
         rect.y= positionY;
         rect.width =WIDTH;
         rect.height=WIDTH;
         //new出来后就放入集合中
-        gameFrame.bulletList.add(this);
+        gameModule.add(this);
     }
 
     public boolean isLive() {
@@ -81,7 +80,9 @@ public class Bullet {
         if (rect.intersects(tank.rec)){
             tank.die();
             this.die();
-            gameFrame.exploreList.add(new Explore(tank.getPositionX()+Tank.WIDTH/3-Explore.WIDTH/2,tank.getPositionY()+Tank.HEIGHT/3-Explore.HEIGHT/2,gameFrame));
+            gameModule.add(new Explore(tank.getPositionX()+Tank.WIDTH/3-Explore.WIDTH/2,tank.getPositionY()+Tank.HEIGHT/3-Explore.HEIGHT/2,gameModule));
+            gameModule.remove(this);
+            gameModule.remove(tank);
         }
     }
 

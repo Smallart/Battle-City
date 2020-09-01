@@ -1,29 +1,18 @@
 package small.com.gui;
 
 import small.com.common.Direction;
-import small.com.common.Group;
-import small.com.major.Explore;
-import small.com.major.bullets.Bullet;
 import small.com.major.bullets.FireStrategy.Impl.CommonFire;
 import small.com.major.bullets.FireStrategy.Impl.FourDirFire;
-import small.com.major.tanks.Tank;
-import small.com.utils.PropertyMagrUtil;
 
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
 
 public class GameFrame extends Frame {
-    private Tank myTank = new Tank(200,200,Direction.UP,this, Group.BLUE);
-    public List<Tank> enemyTanks=new ArrayList<>();
-    public List<Bullet> bulletList=new ArrayList<>();
-    public List<Explore> exploreList = new ArrayList<>();
+
+    private GameModule gameModule = new GameModule();
     Image offScreenImage=null;
     public static int GAME_WIDTH=800,GAME_HEIGHT=600;
 
@@ -43,35 +32,7 @@ public class GameFrame extends Frame {
     //重新绘制时，会将原来的东西清除之后，调用paint方法再绘制
     @Override
     public void paint(Graphics g) {
-        Color c =g.getColor();
-        g.setColor(Color.red);
-        g.drawString("子弹数量："+bulletList.size(),10,60);
-        g.drawString("敌方坦克数量："+enemyTanks.size(),10,80);
-        g.drawString("爆炸的数量："+exploreList.size(),10,100);
-        g.setColor(c);
-        myTank.paint(g);
-        //敌方坦克
-        for (int i = 0; i < enemyTanks.size(); i++) {
-            enemyTanks.get(i).paint(g);
-        }
-        // 绘画爆炸
-        for (int i = 0; i < exploreList.size(); i++) {
-            exploreList.get(i).paint(g);
-        }
-        //子弹
-        for (int i = 0; i < bulletList.size(); i++) {
-            bulletList.get(i).paint(g);
-        }
-        //碰撞检测
-        for (int i = 0; i < bulletList.size(); i++) {
-            for (int j = 0; j < enemyTanks.size(); j++) {
-                bulletList.get(i).collisionWith(enemyTanks.get(j));
-                if (!enemyTanks.get(j).getLiving()){
-                    enemyTanks.remove(j);
-                }
-            }
-            if (!bulletList.get(i).isLive()) bulletList.remove(i);
-        }
+        gameModule.paint(g);
     }
 
     @Override
@@ -139,24 +100,24 @@ public class GameFrame extends Frame {
 //                    } catch (Exception ex) {
 //                        ex.printStackTrace();
 //                    }
-                    myTank.fire(FourDirFire.getInstance());
+                    gameModule.getMainTank().fire(FourDirFire.getInstance());
                     break;
                 case KeyEvent.VK_CONTROL:
-                    myTank.fire(CommonFire.getInstance());
+                    gameModule.getMainTank().fire(CommonFire.getInstance());
                     break;
             }
             SetDirection();
         }
 
         private void SetDirection(){
-            if (KL) myTank.setDir(Direction.LEFT);
-            if (KR) myTank.setDir(Direction.RIGHT);
-            if (KU) myTank.setDir(Direction.UP);
-            if (KD) myTank.setDir(Direction.DOWN);
+            if (KL) gameModule.getMainTank().setDir(Direction.LEFT);
+            if (KR) gameModule.getMainTank().setDir(Direction.RIGHT);
+            if (KU) gameModule.getMainTank().setDir(Direction.UP);
+            if (KD) gameModule.getMainTank().setDir(Direction.DOWN);
             if (!KL&&!KR&&!KU&&!KD) {
-                myTank.setMoving(false);
+                gameModule.getMainTank().setMoving(false);
             }else {
-                myTank.setMoving(true);
+                gameModule.getMainTank().setMoving(true);
             }
         }
     }

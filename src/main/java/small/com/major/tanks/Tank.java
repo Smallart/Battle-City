@@ -3,23 +3,24 @@ package small.com.major.tanks;
 import small.com.common.Direction;
 import small.com.common.Group;
 import small.com.gui.GameFrame;
+import small.com.gui.GameModule;
+import small.com.major.GameObject;
 import small.com.major.bullets.FireStrategy.FireStrategyInter;
 import small.com.major.bullets.FireStrategy.Impl.CommonFire;
-import small.com.major.bullets.FireStrategy.Impl.FourDirFire;
 import small.com.utils.ResourceMgrUtil;
-import small.com.major.bullets.Bullet;
 
 import java.awt.*;
-import java.awt.event.KeyEvent;
 import java.util.Random;
 
-public class Tank {
+public class Tank extends GameObject {
     public static final int WIDTH= ResourceMgrUtil.tankD.getWidth(),HEIGHT= ResourceMgrUtil.tankD.getHeight();
-    protected int positionX;
-    protected int positionY;
     protected static int SPEED=10;
     protected Direction dir;
-    protected GameFrame gameFrame;
+    protected GameModule gameModule;
+    //记录上一步坦克的X位置
+    private int prePositionX;
+    //记录上一步坦克的Y位置
+    private int prePositionY;
     private Boolean moving=true;
     private Boolean living=true;
     private Group group;
@@ -30,11 +31,11 @@ public class Tank {
         this.dir = dir;
     }
 
-    public Tank(int positionX, int positionY, Direction dir,GameFrame gameFrame,Group group) {
+    public Tank(int positionX, int positionY, Direction dir,GameModule gameModule,Group group) {
         this.positionX = positionX;
         this.positionY = positionY;
         this.dir = dir;
-        this.gameFrame=gameFrame;
+        this.gameModule=gameModule;
         this.group=group;
         rec.x=positionX;
         rec.y=positionY;
@@ -47,6 +48,8 @@ public class Tank {
     }
 
     public void paint(Graphics g){
+        prePositionX=positionX;
+        prePositionY=positionY;
         if (moving){
             switch (dir){
                 case UP:
@@ -96,20 +99,28 @@ public class Tank {
         return group;
     }
 
-    public int getPositionX() {
-        return positionX;
-    }
-
-    public int getPositionY() {
-        return positionY;
-    }
-
     public Direction getDir() {
         return dir;
     }
 
-    public GameFrame getGameFrame() {
-        return gameFrame;
+    public GameModule getGameFrame() {
+        return gameModule;
+    }
+
+    public int getPrePositionX() {
+        return prePositionX;
+    }
+
+    public void setPrePositionX(int prePositionX) {
+        this.prePositionX = prePositionX;
+    }
+
+    public int getPrePositionY() {
+        return prePositionY;
+    }
+
+    public void setPrePositionY(int prePositionY) {
+        this.prePositionY = prePositionY;
     }
 
     public Boolean getLiving() {
