@@ -91,6 +91,16 @@ public class Tank extends GameObject {
         }
     }
 
+    @Override
+    public int getHeight() {
+        return HEIGHT;
+    }
+
+    @Override
+    public int getWidth() {
+        return WIDTH;
+    }
+
     private void randomDir(){
        this.dir = Direction.values()[random.nextInt(4)];
     }

@@ -4,6 +4,7 @@ import small.com.common.Direction;
 import small.com.common.Group;
 import small.com.major.Collider;
 import small.com.major.ColliderChain;
+import small.com.major.Decorate.RectDecorator;
 import small.com.major.Explore;
 import small.com.major.GameObject;
 import small.com.major.bullets.Bullet;
@@ -28,6 +29,8 @@ public class GameModule {
         for (int i = 0; i < initTankCount; i++) {
             this.gameObjects.add(new Tank((i+1)*80,200, Direction.DOWN,this, Group.RED));
         }
+//        RectDecorator rectDecorator = new RectDecorator(myTank);
+//        add(rectDecorator);
         add(myTank);
     }
 

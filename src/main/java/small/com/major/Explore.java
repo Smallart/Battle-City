@@ -28,4 +28,14 @@ public class Explore extends GameObject{
             gameModule.remove(this);
         }
     }
+
+    @Override
+    public int getHeight() {
+        return WIDTH;
+    }
+
+    @Override
+    public int getWidth() {
+        return HEIGHT;
+    }
 }
