@@ -100,7 +100,8 @@ public class GameFrame extends Frame {
 //                    } catch (Exception ex) {
 //                        ex.printStackTrace();
 //                    }
-                    gameModule.getMainTank().fire(FourDirFire.getInstance());
+                    //gameModule.getMainTank().fire(FourDirFire.getInstance());
+                    gameModule.getMainTank().handleFireKey();
                     break;
                 case KeyEvent.VK_CONTROL:
                     gameModule.getMainTank().fire(CommonFire.getInstance());

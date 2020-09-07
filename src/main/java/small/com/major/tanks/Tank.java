@@ -10,6 +10,8 @@ import small.com.major.bullets.FireStrategy.Impl.CommonFire;
 import small.com.utils.ResourceMgrUtil;
 
 import java.awt.*;
+import java.util.List;
+import java.util.ArrayList;
 import java.util.Random;
 
 public class Tank extends GameObject {
@@ -41,6 +43,7 @@ public class Tank extends GameObject {
         rec.y=positionY;
         rec.height=HEIGHT;
         rec.width=WIDTH;
+        fireObservers.add(new TankFireObserver());
     }
 
     public void setMoving(Boolean moving) {
@@ -151,4 +154,13 @@ public class Tank extends GameObject {
         if (this.positionY+HEIGHT>GameFrame.GAME_HEIGHT) positionY=GameFrame.GAME_HEIGHT-HEIGHT;
         if (this.positionX+WIDTH>GameFrame.GAME_WIDTH) positionX = GameFrame.GAME_WIDTH-WIDTH;
     }
+    //使用observer模式改写开火方法
+    private List<TankFireObserver> fireObservers = new ArrayList<>();
+    public void handleFireKey(){
+        TankFireEvent tankFireEvent = new TankFireEvent(this);
+        for (TankFireObserver fireObserver : fireObservers) {
+            fireObserver.actionOnfire(tankFireEvent);
+        }
+    }
+
 }
